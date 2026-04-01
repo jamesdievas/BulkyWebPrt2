@@ -1,6 +1,8 @@
 ﻿using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky.Models.ViewModels;
+
 
 
 
@@ -33,28 +35,43 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            IEnumerable<SelectListItem> CategoryList = _categoryRepo
-                .GetAll().Select(j => new SelectListItem
+            ProductVM productVM = new() 
+            {   
+                CategoryList = _categoryRepo.GetAll().Select(j=> new SelectListItem 
                 {
                     Text = j.Name,
                     Value = j.Id.ToString()
-                });
+                }),
+                Product = new Product()
+            };
 
-            //ViewBag.CategoryList = CategoryList; 1.1
-            ViewData["CategoryList"] = CategoryList;
 
-            return View();
+            //IEnumerable<SelectListItem> CategoryList = _categoryRepo
+            //    .GetAll().Select(j => new SelectListItem
+            //    {
+            //        Text = j.Name,
+            //        Value = j.Id.ToString()
+            //    });
+
+            ////ViewBag.CategoryList = CategoryList; 1.1
+            //ViewData["CategoryList"] = CategoryList;
+            //ProductVM productVM = new() { 
+            //    CategoryList = CategoryList,
+            //    Product = new Product()
+            
+            //};
+            return View(productVM);
         }
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(ProductVM productVM)
         {
-            if (obj.Title == obj.Description.ToString())
+            if (productVM.Product.Title == productVM.Product.Description.ToString())
             {
                 ModelState.AddModelError("description", "The Discription cannot exactly match the Tile");
             }
             if (ModelState.IsValid)
             {
-                _productRepo.Add(obj);
+                _productRepo.Add(productVM.Product);
                 _productRepo.Save();
                 //tempData ( will be shown on the page temporarily
                 TempData["success"] = "Product created successfuly";
@@ -63,7 +80,16 @@ namespace BulkyWeb.Areas.Admin.Controllers
                 return RedirectToAction("Index");
 
             }
-            return View();
+            else {
+                productVM.CategoryList = _categoryRepo.GetAll().Select(j => new SelectListItem
+                {
+                    Text = j.Name,
+                    Value = j.Id.ToString()
+                });
+
+                return View(productVM);
+            }
+               
 
         }
         public IActionResult Edit(int? id)
