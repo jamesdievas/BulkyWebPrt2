@@ -1,6 +1,7 @@
-using System.Diagnostics;
+using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace BulkyWeb.Areas.Customer.Controllers
 {
@@ -8,15 +9,37 @@ namespace BulkyWeb.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductRepository _productRepo;
+        private readonly ICategoryRepository _categoryRepo;
+        private readonly IWebHostEnvironment _webHostEnvironment; // allows me to save files
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductRepository productRepo, ICategoryRepository category, IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
+            _productRepo = productRepo;
+            _categoryRepo = category;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Product> objProductList = _productRepo.GetAll().ToList();
+            List<Category> objListCategory = _categoryRepo.GetAll().ToList();
+            List<Product> newListProduct = new List<Product>();
+            foreach (Product obj in objProductList.ToList())
+            {
+
+                var objCategoty = _categoryRepo.GetAll().Where(c => c.Id == obj.CategoryId);
+
+                obj.Category.Id = objCategoty.FirstOrDefault().Id;
+                obj.Category.Name = objCategoty.FirstOrDefault().Name;
+                obj.Category.DisplayOrder = objCategoty.FirstOrDefault().DisplayOrder;
+                newListProduct.Add(obj);
+
+
+            }
+
+            return View(newListProduct);
         }
 
         public IActionResult Privacy()

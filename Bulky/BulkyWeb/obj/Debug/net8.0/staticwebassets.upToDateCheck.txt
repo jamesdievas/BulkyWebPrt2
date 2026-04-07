@@ -1,5 +1,8 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\product\6231e612-d2d7-4058-8565-ee99aa5d01b4.jpg
+wwwroot\images\product\f4abf95d-fb04-4273-ac94-3d086b8d3fc5.jpg
+wwwroot\js\product.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

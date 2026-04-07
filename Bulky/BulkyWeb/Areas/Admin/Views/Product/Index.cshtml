@@ -15,39 +15,27 @@
 
             </div>
             <div class="col6 text-end">
-                <a asp-controller="Product" asp-action="Create" class="btn btn-primary">
+                <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i> Creat new Product
                 </a>
             </div>
 
         </div>
 
-        <table class="table table-bordered table-striped">
+        <table id="tblData" class="table table-bordered table-striped" style="width : 100%">
             <thead>
                 <tr>
 
-                    <th class="p-0">
-                        Book Title
-                    </th>
-                    <th class="p-0">
-                        Book ISBN
-                    </th>
-                    <th class="p-0">
-                        Book Price
-                    </th>
-                    <th class="p-0">
-                        Book Author
-                    </th>
-                    <th class="p-0">
-                        Book Category
-                    </th>
-                    <th>
-
-                    </th>
+                    <th>Title</th>
+                    <th> ISBN</th>
+                    <th> Book Price</th>
+                    <th>Book Author</th>
+                    <th >Book Category</th>
+                    <th>h</th> 
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var obj in Model.OrderBy(e => e.Title))
+            @*<tbody>
+                 @foreach (var obj in Model.OrderBy(e => e.Title))
                 {
                     <tr>
                         <td>
@@ -63,11 +51,14 @@
                             @obj.Author
                         </td>
                         <td>
-                            @* @obj.Price *@
+                            @obj.Category.Name
                         </td>
+                        @*<td>
+                            @obj.Price
+                        </td> 
                         <td>
                             <div class="w-75 btn-group" role="group">
-                                <a asp-controller="Product" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                <a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
                                 <a asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
@@ -78,9 +69,13 @@
                         </td>
                     </tr>
                 }
-            </tbody>
+            </tbody>*@
         </table>
 
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/product.js"></script>
+}
 
