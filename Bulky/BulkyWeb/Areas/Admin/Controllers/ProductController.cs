@@ -107,30 +107,47 @@ namespace BulkyWeb.Areas.Admin.Controllers
                     }
                     productVM.Product.ImageUrl = @"\images\product\" + fileName;
                 }
-                if (productVM.Product.Id == 0)
+                if (productVM.Product.ImageUrl == "" || productVM.Product.ImageUrl == null)
                 {
-
-                    _productRepo.Add(productVM.Product);
-                    _productRepo.Save();
-                    TempData["success"] = "Product created successfuly";
-                    
+                    //ModelState.AddModelError("ImageUrl", "Invalid Image Url");
+                    TempData["error"] = "Problem with the ImageUrl";
                 }
-                else {
-                    // if obj.id ==0, this function will create a new item on the table
-                    _productRepo.Update(productVM.Product);
-                    _productRepo.Save();
-                    TempData["success"] = "Product updated successfuly";
+                else
+                {
+                    if (productVM.Product.Id == 0)
+                    {
+
+                        _productRepo.Add(productVM.Product);
+                        _productRepo.Save();
+                        TempData["success"] = "Product created successfuly";
+
+                    }
+                    else
+                    {
+                        // if obj.id ==0, this function will create a new item on the table
+                        if (productVM.Product.ImageUrl == "" || productVM.Product.ImageUrl == null)
+                        {
+                            ModelState.AddModelError("ImageUrl", "Invalid Image Url");
+                        }
+                        else
+                        {
+                            _productRepo.Update(productVM.Product);
+                            _productRepo.Save();
+                            TempData["success"] = "Product updated successfuly";
+                        }
+
+                        // Se o Index estiver dentro de um controller diferente como o "Category"
+                        //return RedirectToAction("Index","Category");
+                        //return RedirectToAction("Index");
+
+                    }
+                }
+
+
+
                     // Se o Index estiver dentro de um controller diferente como o "Category"
                     //return RedirectToAction("Index","Category");
-                    //return RedirectToAction("Index");
-
-                }
-
-
-
-                // Se o Index estiver dentro de um controller diferente como o "Category"
-                //return RedirectToAction("Index","Category");
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
 
             }
             else

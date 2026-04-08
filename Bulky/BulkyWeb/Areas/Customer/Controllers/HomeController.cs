@@ -42,6 +42,20 @@ namespace BulkyWeb.Areas.Customer.Controllers
             return View(newListProduct);
         }
 
+        public IActionResult Details(int productId)
+        {
+            Product objProduct = _productRepo.GetAll().Where(j=>j.Id == productId).FirstOrDefault();
+            Category objCategory = _categoryRepo.GetAll().Where(j => j.Id == objProduct.CategoryId).FirstOrDefault();
+            Product newProduct = new Product();
+            objProduct.Category.Id = objCategory.Id;
+            objProduct.Category.Name = objCategory.Name;
+            objProduct.Category.DisplayOrder = objCategory.DisplayOrder;
+
+
+            return View(objProduct);
+
+        }
+
         public IActionResult Privacy()
         {
             return View();

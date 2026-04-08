@@ -1,7 +1,13 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\product\1d79b6e0-e6f6-49f8-9e29-06b1a32642c2.jpg
 wwwroot\images\product\6231e612-d2d7-4058-8565-ee99aa5d01b4.jpg
+wwwroot\images\product\64efd900-3f3f-4120-8f05-2c854d1c4720.jpg
+wwwroot\images\product\736ac0e9-1bac-4f7c-bdea-3ba8d73f9237.jpg
+wwwroot\images\product\bb029225-6414-45f3-be64-6455d8d4439b.jpg
+wwwroot\images\product\ddd2ae43-89c7-4b1a-8293-e616124af74b.jpg
 wwwroot\images\product\f4abf95d-fb04-4273-ac94-3d086b8d3fc5.jpg
+wwwroot\images\product\fb8047e9-2561-424b-97d1-8a69ac346c3f.jpg
 wwwroot\js\product.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
